@@ -1,0 +1,11 @@
+asgiref==3.2.3
+Django==2.2.10
+et-xmlfile==1.0.1
+jdcal==1.4.1
+numpy==1.19.4
+openpyxl==2.6.4
+pandas==1.1.4
+python-dateutil==2.8.1
+pytz==2019.3
+six==1.15.0
+sqlparse==0.3.0
