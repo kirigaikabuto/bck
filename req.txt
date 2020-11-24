@@ -1,5 +1,5 @@
 asgiref==3.2.3
-Django==2.2.10
+Django==2.2.13
 et-xmlfile==1.0.1
 jdcal==1.4.1
 numpy==1.19.4
