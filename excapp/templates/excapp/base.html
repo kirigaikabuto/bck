@@ -4,9 +4,73 @@
     <meta charset="UTF-8">
     <title>Excell load</title>
 </head>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script>
+    window.addEventListener('load', function () {
+        var Storage = null;
+        var elementA = document.getElementsByClassName("Download")[0];
+        console.log(elementA)
+        if (elementA != null) {
+            var id = elementA.getAttribute("id");
+            axios({
+                method: 'get',
+                url: 'http://127.0.0.1:8000/detail_info/' + id + '/',
+                responseType: 'json'
+            })
+                .then(function (response) {
+                    Storage = response.data;
+                    CreateTable(response.data)
+
+                });
+
+            function CreateTable(data) {
+                console.log(data)
+                let table = document.createElement("table")
+                for (let element in data) {
+                    let row = document.createElement("tr")
+                    for (let inner in data[element]) {
+                        let td = document.createElement("td")
+                        let input = document.createElement("input")
+                        input.setAttribute("value", data[element][inner])
+                        input.setAttribute("type", 'text')
+                        input.oninput = function () {
+                            data[element][inner] = input.value;
+                            console.log(element, inner, data[element][inner]);
+                            Storage = data;
+                        };
+                        td.appendChild(input)
+                        row.appendChild(td)
+                    }
+                    table.appendChild(row)
+                }
+                document.body.appendChild(table)
+            }
+
+
+            var btnSave = document.getElementById("save");
+            btnSave.addEventListener("click", function () {
+                sendData();
+            })
+
+            function sendData() {
+                console.log(Storage)
+                let payload = {
+                    data: Storage,
+                    name: "asdasdd"
+                };
+                axios.post("http://127.0.0.1:8000/upload_info/", JSON.stringify(payload), {
+                    headers: {
+                        'Content-Type': 'application/json',
+                    }
+                })
+            }
+        }
+    });
+
+</script>
 <body>
 {% block content %}
 
-{%endblock%}
+{% endblock %}
 </body>
 </html>
