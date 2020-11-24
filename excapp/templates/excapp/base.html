@@ -9,9 +9,10 @@
     window.addEventListener('load', function () {
         var Storage = null;
         var elementA = document.getElementsByClassName("Download")[0];
+        var id = 0;
         console.log(elementA)
         if (elementA != null) {
-            var id = elementA.getAttribute("id");
+            id = elementA.getAttribute("id");
             axios({
                 method: 'get',
                 url: 'http://127.0.0.1:8000/detail_info/' + id + '/',
@@ -53,11 +54,13 @@
             })
 
             function sendData() {
-                console.log(Storage)
+
                 let payload = {
+                    id: id,
                     data: Storage,
                     name: "asdasdd"
                 };
+                console.log(payload)
                 axios.post("http://127.0.0.1:8000/upload_info/", JSON.stringify(payload), {
                     headers: {
                         'Content-Type': 'application/json',

@@ -1,15 +1,18 @@
 {% extends 'excapp/base.html' %}
 
 {% block content %}
-<h1>Home</h1>
-  <form method="post" enctype="multipart/form-data">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Upload</button>
-  </form>
-<h1>All Excell Files</h1>
-{%for i in data%}
-<a href="{%url 'Detail' id=i.pk%}">{{i.name}}</a>
-{%endfor%}
-
+    <h1>Home</h1>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Upload</button>
+    </form>
+    <h1>All Excell Files</h1>
+    {% for i in data %}
+        <a href="{% url 'Detail' id=i.pk %}">{{ i.name }}</a>
+    {% endfor %}
+   <h1>Data History</h1>
+        {% for file in dataHistory %}
+            <p>{{ file.parent.name }} -> {{ file.child.name }}</p>
+        {% endfor %}
 {% endblock %}
