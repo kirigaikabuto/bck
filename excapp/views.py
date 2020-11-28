@@ -73,10 +73,11 @@ def upload_info(request):
         fileName = data.name + str(random.randint(0, 1000))
         fileFullPath = settings.MEDIA_ROOT + "/documents/" + fileName + ".xlsx"
         df.to_excel(fileFullPath, index=False)
-        file = open(fileFullPath, "rb")
+        file = open(fileFullPath, "rb+")
         newFile = ContentFile(file.read())
         newFile.name = fileName
         newData = Data.objects.create(name=fileName, file=newFile)
+        # newData = Data.objects.create(name=fileName, file=newFile)
         newData.save()
         dataHistory = DataHistory.objects.create(parent=data, child=newData)
         dataHistory.save()
